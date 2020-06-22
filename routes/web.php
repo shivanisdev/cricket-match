@@ -21,6 +21,9 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('teams', 'TeamController@index')->name('teams');
-Route::get('players/{team}', 'PlayerController@index')->name('players');
-Route::get('matches', 'MatchController@index')->name('matches');
+Route::group(['middleware' => ['auth']], function () {
+    Route::get('teams', 'TeamController@index')->name('teams');
+    Route::get('players/{team}', 'PlayerController@index')->name('players');
+    Route::get('matches', 'MatchController@index')->name('matches');
+});
+
